@@ -7,7 +7,7 @@ import { MyDropdown4 } from "./MyDropDown4";
 import { Oxygen } from "./Oxygen";
 import { Charts } from "./Charts";
 import "./style.css";
-const TempList = ({ getTaskId, currDate, props, dropValue, setDropValue }) => {
+const TotalList = ({ getTaskId, currDate, props, dropValue, setDropValue }) => {
   const { handleDrop, dropdn, tempVal, setTempVal } = useContext(CartContext);
 
   const MyDate = new Date().toLocaleDateString();
@@ -41,14 +41,15 @@ const TempList = ({ getTaskId, currDate, props, dropValue, setDropValue }) => {
             <tbody>
               {task
                 .sort((a, b) => (a.unit > b.unit ? 1 : -1))
-                .filter((doc) => doc.temp)
+
                 .map((doc, index) => {
                   return (
                     <tr key={user.id}>
                       <td>{doc.dropdn}</td>
 
                       <td>
-                        {doc.temp}&nbsp;
+                        {doc.temp}
+                        {doc.oxy} &nbsp;
                         {doc.unit}
                       </td>
 
@@ -66,4 +67,4 @@ const TempList = ({ getTaskId, currDate, props, dropValue, setDropValue }) => {
   );
 };
 
-export default TempList;
+export default TotalList;

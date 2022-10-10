@@ -12,9 +12,20 @@
                 <option value="oxy">OxyGen</option>
               </select>
 
+doc.currDate[3] === doc.MyDate[3]
+                        ? `${doc.MyTime} `
 
+<div>
+          <Charts />
+          <h3 style={{ paddingLeft: "40px" }}>Temperature Charts </h3>
+        </div>
 
-
+        <div>
+        <div>
+          <Charts />
+          <h3 style={{ marginLeft: "40px" }}>Oxygen Charts </h3>
+        </div>
+      </div>
 
 
 

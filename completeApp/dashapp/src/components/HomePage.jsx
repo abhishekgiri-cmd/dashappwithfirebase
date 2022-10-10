@@ -34,7 +34,7 @@ export const HomePage = () => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <div className="user ">
-                  <p id="p1">user:{user && user.email.split("@")[0]}</p>{" "}
+                  <h5 id="p1">{user && user.email.split("@")[0]}</h5>{" "}
                 </div>
                 <div style={{ marginRight: "10px" }}>
                   <Button variant="contained" onClick={handleLogOut}>
@@ -52,15 +52,6 @@ export const HomePage = () => {
       </Navbar>
 
       <div className="mycharts">
-        <div className="div1">
-          <Container>
-            <Row>
-              <Col>
-                <Charts />
-              </Col>
-            </Row>
-          </Container>
-        </div>
         <div className="div2">
           <Container>
             <Row>

@@ -6,7 +6,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 export const MyDropdown4 = ({ setDropValue, dropValue }) => {
-  const [d, setD] = useState(dropValue);
   const handleChange = (event) => {
     setDropValue(event.target.value);
   };
@@ -22,7 +21,8 @@ export const MyDropdown4 = ({ setDropValue, dropValue }) => {
           label="select Item"
           onChange={handleChange}
         >
-          <MenuItem value="oxygen">Oxygen</MenuItem>
+          <MenuItem value="all">All Item</MenuItem>
+          <MenuItem value="oxygen">oxygen</MenuItem>
           <MenuItem value="temperature">temperature</MenuItem>
         </Select>
       </FormControl>
