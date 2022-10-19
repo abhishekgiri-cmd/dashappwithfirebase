@@ -10,31 +10,27 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
+  Label,
 } from "recharts";
 import { CartContext } from "../context/Mydata";
 import Taskmethod from "../method/Taskmethod";
 
 let datap = [];
-export const Charts = ({ Value }) => {
-  const {
-    dropValue,
-
-    setDropValue,
-  } = useContext(CartContext);
+export const OxyCharts = ({ Value }) => {
+  const { handleDrop, dropValue, tempVal, setTempVal, setDropValue, currDate } =
+    useContext(CartContext);
   const [Data, setData] = useState([]);
   const [task, setTask] = useState([]);
   useEffect(() => {
     getAllTasks();
     setData([]);
-  }, [Value]);
+  }, []);
   datap = task;
   const getAllTasks = async () => {
     const data = await Taskmethod.getAllTask();
 
-    console.log("Data is ");
     setTask(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setDropValue(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    console.log("drop value is---- ", dropValue);
   };
 
   return (
@@ -48,13 +44,12 @@ export const Charts = ({ Value }) => {
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="currDate"></XAxis>
+          <XAxis dataKey="MyTime" key={"oxy"} />
           <YAxis domain={["auto", "auto"]} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="temp" fill="#8884d8" />
-          <Bar dataKey="oxy" fill="#82ca9d" />
-          <Bar dataKey="cusData" fill="tomato" />
+          <Bar dataKey="oxy" fill="#8884d8" />
+          <Bar dataKey="unit" fill="#82ca9d" />
         </BarChart>
       </ResponsiveContainer>
     </div>

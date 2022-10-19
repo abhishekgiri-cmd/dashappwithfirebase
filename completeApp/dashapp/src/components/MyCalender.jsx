@@ -1,30 +1,20 @@
-import * as React from "react";
-import dayjs from "dayjs";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
 
-export const MyCalender = ({ setCurrDate, currDate }) => {
-  const [value, setValue] = React.useState(dayjs());
-
+import "react-datepicker/dist/react-datepicker.css";
+export const MyCalender = () => {
+  const [startDate, setStartDate] = useState(new Date());
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={3}>
-        <DatePicker
-          // disableFuture
-          label="Responsive"
-          openTo="year"
-          views={["year", "month", "day"]}
-          value={currDate}
-          onChange={(newValue) => {
-            setCurrDate(newValue);
-            setValue(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </Stack>
-    </LocalizationProvider>
+    <div>
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        locale="pt-BR"
+        showTimeSelect
+        timeFormat="p"
+        timeIntervals={15}
+        dateFormat="Pp"
+      />
+    </div>
   );
 };

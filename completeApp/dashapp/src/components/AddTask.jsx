@@ -1,7 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { CartContext } from "../context/Mydata";
+import { CustomData } from "./CustomData";
 import { MyDropdown3 } from "./MyDropDown3";
+import { MyDropdown5 } from "./MyDropDown5";
+
 import { Oxygen } from "./Oxygen";
 import "./style.css";
 import { Temperature } from "./Temperature";
@@ -22,13 +25,24 @@ const AddTask = ({ id, setTaskId }) => {
             {message?.msg}
           </Alert>
         )}
-
         <div>
-          <h1>You are adding {drop} as health data</h1>
+          <h6 style={{ marginBottom: "25px" }}>
+            You are adding <u>{drop} </u> as health data
+          </h6>
           <div className="dropdown">
-            <MyDropdown3 setDrop={setDrop} drop={drop} />
-            <br /> <br />
-            <div>{dropdn === "temperature" ? <Temperature /> : <Oxygen />}</div>
+            <MyDropdown5 setDrop={setDrop} drop={drop} />
+            <br />
+
+            <br />
+            <div>
+              {dropdn === "temperature" ? (
+                <Temperature />
+              ) : dropdn === "oxygen" ? (
+                <Oxygen />
+              ) : (
+                <CustomData />
+              )}
+            </div>
           </div>
         </div>
       </div>

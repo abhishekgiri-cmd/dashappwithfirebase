@@ -17,24 +17,16 @@ export const MyModal = () => {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Add Your Data
+        Add Data
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Your Health Data</Modal.Title>
+          <Modal.Title>Your Data</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AddTask id={taskId} setTaskId={setTaskId} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Done
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

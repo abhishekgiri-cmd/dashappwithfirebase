@@ -1,14 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/Mydata";
 import { MyDropdown4 } from "./MyDropDown4";
-import TempList from "./TempList";
-import OxyList from "./OxyList";
 import "./style.css";
-import { Charts } from "./Charts";
-import TotalList from "./TotalList";
-const TaskList = ({ getTaskId, currDate, props, drop, setDrop }) => {
+
+import CustomDataList from "./CustomDataList";
+import { doc } from "firebase/firestore";
+import { CustomDataCharts } from "./CustomDataCharts";
+import { OxyCharts } from "./OxyCharts";
+
+const TaskList = ({
+  getTaskId,
+  currDate,
+  props,
+  drop,
+  setDrop,
+  cusData,
+  setCusData,
+  value,
+}) => {
   const { handleDrop, dropdn, tempVal, setTempVal } = useContext(CartContext);
-  const [dropValue, setDropValue] = useState("temp");
+  const [dropValue, setDropValue] = useState(doc.cusData);
   // const [task, setTask] = useState([]);
 
   return (
@@ -18,17 +29,10 @@ const TaskList = ({ getTaskId, currDate, props, drop, setDrop }) => {
       </div>
       <div className="Listener">
         <div className="list">
-          {dropValue === "all" ? (
-            <TotalList />
-          ) : dropValue === "oxygen" ? (
-            <OxyList />
-          ) : (
-            <TempList />
-          )}
+          <CustomDataList />
         </div>
         <div className="charts">
-          <Charts />
-          <h5 style={{ paddingLeft: " 170px" }}>{dropValue} Charts</h5>
+          <CustomDataCharts />
         </div>
       </div>
     </div>

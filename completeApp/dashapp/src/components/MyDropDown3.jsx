@@ -12,7 +12,7 @@ export const MyDropdown3 = ({ setDrop, drop }) => {
     setDrop(event.target.value);
     handleDrop(event.target.value);
   };
-  console.log("drpdn", dropdn);
+  // console.log("drpdn", dropdn);
 
   return (
     <Box sx={{ minWidth: 120 }}>
@@ -27,6 +27,7 @@ export const MyDropdown3 = ({ setDrop, drop }) => {
         >
           <MenuItem value="oxygen">OxyGen</MenuItem>
           <MenuItem value="temperature">Temperature</MenuItem>
+          <MenuItem value="custom">Add Any Data</MenuItem>
         </Select>
       </FormControl>
     </Box>

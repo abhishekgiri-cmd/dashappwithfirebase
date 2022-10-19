@@ -4,10 +4,16 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { CartContext } from "../context/Mydata";
 
-export const MyDropdown2 = ({ setUnit, unit }) => {
+export const MyDropdown2 = () => {
+  const { handleDrop, dropdn, setDropdn, unit, setUnit } =
+    React.useContext(CartContext);
+  // const [cusData, setCData] = React.useState("");
   const handleChange = (event) => {
     setUnit(event.target.value);
+    handleDrop(event.target.value);
+    // setCustomData(event.target.value);
   };
 
   return (
@@ -21,7 +27,7 @@ export const MyDropdown2 = ({ setUnit, unit }) => {
           label="select unit"
           onChange={handleChange}
         >
-          <MenuItem value={"g/cm3"}>g/cm3</MenuItem>
+          <MenuItem value={"g/cm3"}>{unit}</MenuItem>
           <MenuItem value={"kg/m3"}>kg/m3</MenuItem>
         </Select>
       </FormControl>

@@ -1,201 +1,131 @@
+//-------------TaskList start-------------------------
 
-
-
-<div className="dopdn">
-              <select
-                onChange={(e) => setDrop(e.target.value)}
-                setDrop={setDrop}
-                drop={drop}
-              >
-                <option>Select Item to add </option>
-                <option value="temp">Temperature</option>
-                <option value="oxy">OxyGen</option>
-              </select>
-
-doc.currDate[3] === doc.MyDate[3]
-                        ? `${doc.MyTime} `
-
-<div>
-          <Charts />
-          <h3 style={{ paddingLeft: "40px" }}>Temperature Charts </h3>
-        </div>
-
-        <div>
-        <div>
-          <Charts />
-          <h3 style={{ marginLeft: "40px" }}>Oxygen Charts </h3>
-        </div>
-      </div>
-
-
-
-
-
-
-
- <Navbar bg="dark" variant="dark" className="header">
-        <Container>
-          <Navbar.Brand href="#home">My firebase Temperature App</Navbar.Brand>
-        </Container>
-      </Navbar>
-
-  <Container style={{ width: "400px" }}>
-          <Row>
-            <Col>
-              <AddTask id={taskId} setBookId={setTaskId} />
-            </Col>
-          </Row>
-        </Container>
-      //------------------------------------------------------------------------------
-
-
-      import React, { useState } from "react";
-import { useRef } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { Form, Alert, InputGroup } from "react-bootstrap";
-import Taskmethod from "../method/Taskmethod";
-const AddTask = ({ id, setTaskId }) => {
-  const ref = useRef();
-  const [temp, setTemp] = useState("");
-  const [drop, setDrop] = useState();
-  const [oxy, setOxy] = useState("");
-  const [unit, setUnit] = useState("");
-  const [currDate, setCurrDate] = useState("");
-  const [select, setSelect] = useState("");
-  const [message, setMessage] = useState({ error: false, msg: "" });
-  const MyTime = new Date().toLocaleTimeString();
-  // const MyDate = new Date().toLocaleDateString();
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  console.log(select);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage("");
-
-    const newTask = {
-      temp,
-      // MyDate,
-      currDate,
-      MyTime,
-
-      unit,
-      oxy,
-    };
-
-    try {
-      await Taskmethod.addTasks(newTask);
-      setMessage({ error: false, msg: "Data added successfully!" });
-    } catch (err) {
-      setMessage({ error: true, msg: err.message });
-    }
-
-    setTemp("");
-    setOxy("");
-    setUnit("");
-  };
+import React, { useContext, useEffect, useState } from "react";
+import { CartContext } from "../context/Mydata";
+import { MyDropdown4 } from "./MyDropDown4";
+import TempList from "./TempList";
+import OxyList from "./OxyList";
+import "./style.css";
+import { Charts } from "./Charts";
+import TotalList from "./TotalList";
+import { AllCharts } from "./AllCharts";
+import { TempCharts } from "./TempCharts";
+import { OxyCharts } from "./OxyCharts";
+import CustomDataList from "./CustomDataList";
+import { CustomDataCharts } from "./CustomDataCharts";
+const TaskList = ({ getTaskId, currDate, props, drop, setDrop }) => {
+  const { handleDrop, dropdn, tempVal, setTempVal } = useContext(CartContext);
+  const [dropValue, setDropValue] = useState("temp");
+  // const [task, setTask] = useState([]);
 
   return (
-    <div>
-      <div className="p-4 box">
-        {message?.msg && (
-          <Alert
-            variant={message?.error ? "danger" : "success"}
-            dismissible
-            onClose={() => setMessage("")}
-          >
-            {message?.msg}
-          </Alert>
-        )}
-
-        <Form onSubmit={handleSubmit}>
-          <div className="dropdown">
-            <select onChange={(e) => setDrop(e.target.value)}>
-              <option value="temp">Temperature</option>
-              <option value="oxy">OxyGen</option>
-            </select>
-            <br /> <br />
-            <div>
-              {drop === "temp" ? (
-                <div>
-                  <Form.Group className="mb-3" controlId="formunit">
-                    <InputGroup>
-                      <InputGroup.Text id="formTempTitle">
-                        Temperature
-                      </InputGroup.Text>
-                      <Form.Control
-                        type="text"
-                        placeholder="Add oxygen"
-                        value={temp}
-                        onChange={(e) => setTemp(e.target.value)}
-                      />
-                    </InputGroup>
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formunit">
-                    <InputGroup>
-                      <InputGroup.Text id="formunit">Unit</InputGroup.Text>
-                      <Form.Control
-                        type="text"
-                        placeholder="Unit"
-                        value={unit}
-                        onChange={(e) => setUnit(e.target.value)}
-                      />
-                    </InputGroup>
-                  </Form.Group>
-                </div>
-              ) : (
-                <div>
-                  <Form.Group className="mb-3" controlId="formunit">
-                    <InputGroup>
-                      <InputGroup.Text id="formTempTitle">
-                        OxyGen
-                      </InputGroup.Text>
-                      <Form.Control
-                        type="text"
-                        placeholder="Add oxygen"
-                        value={oxy}
-                        onChange={(e) => setOxy(e.target.value)}
-                      />
-                    </InputGroup>
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formunit">
-                    <InputGroup>
-                      <InputGroup.Text id="formunit">Unit</InputGroup.Text>
-                      <Form.Control
-                        type="text"
-                        placeholder="Unit"
-                        value={unit}
-                        onChange={(e) => setUnit(e.target.value)}
-                      />
-                    </InputGroup>
-                  </Form.Group>
-                </div>
-              )}
-              <Form.Group className="mb-3" controlId="formDateunit">
-                <InputGroup>
-                  <InputGroup.Text id="formDateUnit">Date</InputGroup.Text>
-                  <Form.Control
-                    type="date"
-                    value={currDate}
-                    onChange={(e) => setCurrDate(e.target.value)}
-                  />
-                </InputGroup>
-              </Form.Group>
-
-              <div className="d-grid gap-2">
-                <Button variant="primary" type="Submit">
-                  Add Health Data
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Form>
+    <div className="listcontain">
+      <div className="dropvalue">
+        <MyDropdown4 dropValue={dropValue} setDropValue={setDropValue} />
+      </div>
+      <div className="Listener">
+        <div className="list">
+          {dropValue === "all" ? (
+            <TotalList />
+          ) : dropValue === "oxygen" ? (
+            <OxyList />
+          ) : dropValue === "temperature" ? (
+            <TempList />
+          ) : (
+            <CustomDataList />
+          )}
+        </div>
+        <div className="charts">
+          {dropValue === "oxygen" ? (
+            <OxyCharts />
+          ) : dropValue === "temperature" ? (
+            <TempCharts />
+          ) : dropValue === "cusData" ? (
+            <CustomDataCharts />
+          ) : (
+            <Charts />
+          )}
+          <h5 style={{ paddingLeft: " 170px" }}>{dropValue} Charts</h5>
+        </div>
       </div>
     </div>
   );
 };
 
-export default AddTask;
+export default TaskList;
+
+
+//-------------------TaskList Ends-------------------------------------
+
+
+
+<Form.Group className="mb-3" controlId="formunit">
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{
+                      border: "1px solid grey",
+                      borderRadius: "5px",
+                      width: "50px",
+                      textAlign: "center",
+                      backgroundColor: "#e9ecef",
+                      borderRight: "0px",
+                      borderTopRightRadius: "0px",
+                      borderBottomRightRadius: "0px",
+                      height: "29px",
+                    }}
+                  >
+                    <label id="formTempTitle">Date</label>
+                  </div>
+                  <div>
+                    <DatePicker
+                      selected={date}
+                      value={currDate}
+                      currDate={currDate}
+                      setCurrDate={setCurrDate}
+                      onChange={(e) => setCurrDate(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </Form.Group>
+
+
+              //---------------------------- task list-------------------
+
+
+                <div className="dropvalue">
+        <MyDropdown4 dropValue={dropValue} setDropValue={setDropValue} />
+      </div>
+
+
+      ///---------------------------date input---------------------------
+
+       <div className="pick">
+                  <Form.Group className="mb-3" controlId="formunit">
+                    <div style={{ display: "flex" }}>
+                      <div
+                        style={{
+                          border: "1px solid grey",
+                          borderRadius: "5px",
+                          width: "50px",
+                          textAlign: "center",
+                          backgroundColor: "#e9ecef",
+                          borderRight: "0px",
+                          borderTopRightRadius: "0px",
+                          borderBottomRightRadius: "0px",
+                          height: "29px",
+                        }}
+                      >
+                        <label id="formTempTitle">Date</label>
+                      </div>
+                      <div>
+                        <DatePicker
+                          selected={date}
+                          value={currDate}
+                          currDate={currDate}
+                          setCurrDate={setCurrDate}
+                          onChange={(e) => setCurrDate(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </Form.Group>
+                </div>

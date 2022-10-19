@@ -5,14 +5,13 @@ import { CartContext } from "../context/Mydata";
 import Taskmethod from "../method/Taskmethod";
 import { MyDropdown2 } from "./MyDropdown2";
 import moment from "moment";
-export const Oxygen = () => {
-  const [oxy, setOxy] = useState("");
+
+export const CustomData = (props) => {
+  const [cusData, setCusData] = useState("");
   const [unit, setUnit] = useState("");
   // console.log("unit :", unit);
   const MyTime = moment().format("LT");
   const MyDate = new Date().toLocaleDateString();
-  // const MyDate = moment().format("dd MM YY");
-
   const [currDate, setCurrDate] = useState(MyDate);
   const [message, setMessage] = useState({ error: false, msg: "" });
   const { handleDrop, dropdn } = useContext(CartContext);
@@ -20,18 +19,18 @@ export const Oxygen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-    // if (unit === "") {
-    //   setMessage({
-    //     error: true,
-    //     msg: "All fields are mandatory!",
-    //   });
-    //   return;
-    // }
+    if (unit === "") {
+      setMessage({
+        error: true,
+        msg: "All fields are mandatory!",
+      });
+      return;
+    }
     const newTask = {
       MyDate,
       currDate,
       MyTime,
-      oxy,
+      cusData,
       dropdn,
       unit,
     };
@@ -46,7 +45,7 @@ export const Oxygen = () => {
       setMessage({ error: true, msg: err.message });
     }
 
-    setOxy("");
+    setCusData("");
     setUnit("");
     setCurrDate("");
     // handleDrop();
@@ -67,19 +66,29 @@ export const Oxygen = () => {
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formunit">
             <InputGroup>
-              <InputGroup.Text id="formTempTitle">OxyGen</InputGroup.Text>
+              <InputGroup.Text id="formTempTitle">Your Data</InputGroup.Text>
               <Form.Control
                 type="text"
-                placeholder="Add Oxygen"
-                value={oxy}
-                onChange={(e) => setOxy(e.target.value)}
+                placeholder="Add your deire data"
+                value={cusData}
+                onChange={(e) => setCusData(e.target.value)}
+                cusData={cusData}
+                setCusData={setCusData}
               />
             </InputGroup>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formunit">
-            <div className="dopdn">
-              <MyDropdown2 setUnit={setUnit} unit={unit} />
-            </div>
+            <InputGroup>
+              <InputGroup.Text id="formTempTitle">Add Input</InputGroup.Text>
+              <Form.Control
+                type="text"
+                placeholder="Add Unit for your Data"
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+                unit={unit}
+                setUnit={setUnit}
+              />
+            </InputGroup>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formDateunit">
             <InputGroup>
@@ -89,6 +98,8 @@ export const Oxygen = () => {
                 name="begin"
                 value={currDate}
                 formate="dd/MM/yy"
+                min="01-01-1998"
+                max="31-12-2030"
                 onChange={(e) => setCurrDate(e.target.value)}
               />
             </InputGroup>

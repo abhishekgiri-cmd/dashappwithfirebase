@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import Taskmethod from "../method/Taskmethod";
 import { CartContext } from "../context/Mydata";
-import { MyDropdown4 } from "./MyDropDown4";
-import { Oxygen } from "./Oxygen";
-import { Charts } from "./Charts";
 
 import "./style.css";
-import { doc } from "firebase/firestore";
+import moment from "moment";
 
-const TotalList = ({ getTaskId, currDate, props, dropValue }) => {
-  const { handleDrop, dropdn, tempVal, setTempVal } = useContext(CartContext);
+const CustomDataList = ({ getTaskId, props, dropValue }) => {
+  const { handleDrop, dropdn, tempVal, setTempVal, drop, setDrop } =
+    useContext(CartContext);
 
   const [task, setTask] = useState([]);
   const { user } = useUserAuth();
@@ -29,39 +27,31 @@ const TotalList = ({ getTaskId, currDate, props, dropValue }) => {
     <div>
       <div>
         <div>
-          <Table
-            striped
-            bordered
-            hover
-            size="sm"
-            unit={doc.unit}
-            temp={doc.temp}
-            oxy={doc.oxy}
-          >
+          <Table striped bordered hover size="sm">
             <thead>
               <tr>
                 <th>Name</th>
-                <th> value</th>
-                <th> unit</th>
+                <th>Value</th>
+                <th>Unit</th>
                 <th> Date</th>
               </tr>
             </thead>
             <tbody>
               {task
-                .sort((a, b) => (b.MyTime > a.MyTime ? 1 : -1))
-                .filter((doc) => doc.cusData)
+                .sort((a, b) => (b.cusData > a.cusData ? 1 : -1))
+                .filter((doc) => doc.val)
                 .map((doc, index) => {
                   // console.log(doc.currDate);
                   return (
                     <tr key={user.id}>
                       <td>{doc.cusData}</td>
-
-                      <td>
-                        &nbsp;
-                        {doc.val}
-                      </td>
+                      <td>{doc.val}</td>
                       <td>{doc.unit}</td>
-                      <td> {doc.currDate}</td>
+                      <td>
+                        {doc.currDate}
+                        <br />
+                        {doc.MyTime}
+                      </td>
                     </tr>
                   );
                 })}
@@ -73,4 +63,4 @@ const TotalList = ({ getTaskId, currDate, props, dropValue }) => {
   );
 };
 
-export default TotalList;
+export default CustomDataList;

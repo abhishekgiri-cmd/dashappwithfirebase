@@ -4,15 +4,18 @@ import { Alert, Button, Form, InputGroup } from "react-bootstrap";
 import { CartContext } from "../context/Mydata";
 import Taskmethod from "../method/Taskmethod";
 import { MyDropdown } from "./MyDropdown";
-// import { MyDropdown2 } from "./MyDropdown2";
+import moment from "moment";
 
 export const Temperature = (props) => {
   const [temp, setTemp] = useState("");
   const [unit, setUnit] = useState("");
-  console.log("unit :", unit);
-  const MyTime = new Date().toLocaleTimeString();
-  const MyDate = new Date().toLocaleDateString();
+
+  const MyTime = moment().format("LT");
+  const MyDate = moment().format("do mm yyyy");
+
   const [currDate, setCurrDate] = useState(MyDate);
+  console.log("current Date--", currDate);
+
   const [message, setMessage] = useState({ error: false, msg: "" });
   const { handleDrop, dropdn } = useContext(CartContext);
 
@@ -27,12 +30,12 @@ export const Temperature = (props) => {
       return;
     }
     const newTask = {
-      MyDate,
       currDate,
       MyTime,
       temp,
       dropdn,
       unit,
+      // MyDate,
     };
 
     try {
@@ -47,7 +50,7 @@ export const Temperature = (props) => {
 
     setTemp("");
     setUnit("");
-    setCurrDate("");
+    setCurrDate(MyDate);
     // handleDrop();
   };
 
@@ -72,6 +75,8 @@ export const Temperature = (props) => {
                 placeholder="Add Temperature"
                 value={temp}
                 onChange={(e) => setTemp(e.target.value)}
+                setTemp={setTemp}
+                temp={temp}
               />
             </InputGroup>
           </Form.Group>
@@ -84,12 +89,12 @@ export const Temperature = (props) => {
             <InputGroup>
               <InputGroup.Text id="formDateUnit">Date</InputGroup.Text>
               <Form.Control
-                type="datetime"
-                name={MyDate}
+                type="date"
+                // placeholder={MyDate}
                 value={currDate}
-                date-format="dd /MM /yyyy"
                 onChange={(e) => setCurrDate(e.target.value)}
                 currDate={currDate}
+                setCurrDate={setCurrDate}
               />
             </InputGroup>
           </Form.Group>

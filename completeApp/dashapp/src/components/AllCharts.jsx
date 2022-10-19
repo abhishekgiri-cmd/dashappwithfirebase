@@ -10,17 +10,15 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
+  Label,
 } from "recharts";
 import { CartContext } from "../context/Mydata";
 import Taskmethod from "../method/Taskmethod";
 
 let datap = [];
-export const Charts = ({ Value }) => {
-  const {
-    dropValue,
-
-    setDropValue,
-  } = useContext(CartContext);
+export const AllCharts = ({ Value }) => {
+  const { handleDrop, dropValue, tempVal, setTempVal, setDropValue } =
+    useContext(CartContext);
   const [Data, setData] = useState([]);
   const [task, setTask] = useState([]);
   useEffect(() => {
@@ -39,22 +37,22 @@ export const Charts = ({ Value }) => {
 
   return (
     <div>
-      <ResponsiveContainer width="100%" aspect={2}>
-        <BarChart
-          width={630}
-          height={650}
-          data={datap}
-          barGap={0}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
+      <ResponsiveContainer width="100%" aspect={3}>
+        <BarChart width={730} height={650} data={datap}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="currDate"></XAxis>
-          <YAxis domain={["auto", "auto"]} />
+          <XAxis dataKey="datap">
+            <Label
+              value="<-------------------data of every Day ------------------------>"
+              offset={6}
+              position="insideBottom"
+            />
+          </XAxis>
+          <YAxis />
           <Tooltip />
           <Legend />
           <Bar dataKey="temp" fill="#8884d8" />
           <Bar dataKey="oxy" fill="#82ca9d" />
-          <Bar dataKey="cusData" fill="tomato" />
+          <Bar dataKey="unit" fill="#82ca9d" />
         </BarChart>
       </ResponsiveContainer>
     </div>

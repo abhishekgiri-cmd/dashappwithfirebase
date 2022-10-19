@@ -5,14 +5,17 @@ import { Container, Row, Col, Navbar, Nav } from "react-bootstrap";
 import TaskList from "./TaskList";
 import { MyModal } from "./MyModal";
 import "./style.css";
-import { Charts } from "./Charts";
+import AccountCircleSharpIcon from "@mui/icons-material/AccountCircleSharp";
+
+import { AddParameterModal } from "./AddParameterModal";
+import { AddDataModal } from "./AddDataModal";
 
 export const HomePage = () => {
   const [taskId, setTaskId] = useState("");
   const { user, logOut } = useUserAuth();
 
   const getTaskIdHandler = (id) => {
-    console.log("The ID of document to be edited: ", id);
+    // console.log("The ID of document to be edited: ", id);
     setTaskId(id);
   };
   const handleLogOut = async () => {
@@ -34,16 +37,24 @@ export const HomePage = () => {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <div className="user ">
-                  <h5 id="p1">{user && user.email.split("@")[0]}</h5>{" "}
-                </div>
-                <div style={{ marginRight: "10px" }}>
-                  <Button variant="contained" onClick={handleLogOut}>
-                    Log Out
-                  </Button>
+                  <div>
+                    <AccountCircleSharpIcon />
+                  </div>
+                  <div>
+                    <h5 id="p1">{user && user.email.split("@")[0]}</h5>{" "}
+                  </div>
                 </div>
 
                 <div>
-                  <MyModal />
+                  <AddParameterModal />
+                </div>
+                <div>
+                  <AddDataModal />
+                </div>
+                <div style={{ marginRight: "10px" }}>
+                  <Button variant="outlined" onClick={handleLogOut}>
+                    Log Out
+                  </Button>
                 </div>
               </Nav>
             </Navbar.Collapse>
